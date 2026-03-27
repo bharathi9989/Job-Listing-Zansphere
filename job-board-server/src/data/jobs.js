@@ -1,0 +1,22 @@
+export const jobs = [
+  { id: 1, title: "Frontend Developer", role: "Frontend", type: "Remote", salary: 600000 },
+  { id: 2, title: "Backend Developer", role: "Backend", type: "Onsite", salary: 800000 },
+  { id: 3, title: "Full Stack Developer", role: "Fullstack", type: "Remote", salary: 1000000 },
+  { id: 4, title: "UI Designer", role: "Design", type: "Onsite", salary: 500000 },
+  { id: 5, title: "DevOps Engineer", role: "DevOps", type: "Remote", salary: 1200000 },
+  { id: 6, title: "Data Analyst", role: "Data", type: "Onsite", salary: 700000 },
+  { id: 7, title: "React Developer", role: "Frontend", type: "Remote", salary: 650000 },
+  { id: 8, title: "Node.js Developer", role: "Backend", type: "Onsite", salary: 850000 },
+  { id: 9, title: "Software Engineer", role: "Fullstack", type: "Remote", salary: 1100000 },
+  { id: 10, title: "QA Engineer", role: "Testing", type: "Onsite", salary: 400000 },
+  { id: 11, title: "Mobile Developer", role: "Frontend", type: "Remote", salary: 900000 },
+  { id: 12, title: "Cloud Engineer", role: "DevOps", type: "Onsite", salary: 1300000 },
+  { id: 13, title: "Machine Learning Engineer", role: "Data", type: "Remote", salary: 1500000 },
+  { id: 14, title: "Angular Developer", role: "Frontend", type: "Onsite", salary: 750000 },
+  { id: 15, title: "Python Developer", role: "Backend", type: "Remote", salary: 950000 },
+  { id: 16, title: "System Engineer", role: "DevOps", type: "Onsite", salary: 1000000 },
+  { id: 17, title: "Product Designer", role: "Design", type: "Remote", salary: 650000 },
+  { id: 18, title: "Business Analyst", role: "Data", type: "Onsite", salary: 600000 },
+  { id: 19, title: "Security Engineer", role: "DevOps", type: "Remote", salary: 1400000 },
+  { id: 20, title: "Intern Developer", role: "Frontend", type: "Onsite", salary: 300000 }
+];
