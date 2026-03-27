@@ -44,7 +44,7 @@ const Home = () => {
           sort,
         });
 
-        const res = await fetch(`http://localhost:5000/api/jobs?${query}`);
+        const res = await fetch(`http://localhost:2021/api/jobs?${query}`);
         const data = await res.json();
 
         setJobsData(data);
