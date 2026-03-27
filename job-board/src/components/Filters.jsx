@@ -1,32 +1,45 @@
 const Filters = ({ setRole, setType, setSalary, setSort }) => {
   return (
-    <div>
-      <select onChange={(e) => setRole(e.target.value)}>
-        <option value="">All Roles</option>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+      <select
+        onChange={(e) => setRole(e.target.value)}
+        className="p-2 border rounded"
+      >
+        <option value="">Role</option>
         <option value="Frontend">Frontend</option>
         <option value="Backend">Backend</option>
         <option value="Fullstack">Fullstack</option>
       </select>
 
-      <select onChange={(e) => setType(e.target.value)}>
-        <option value="">All Types</option>
+      <select
+        onChange={(e) => setType(e.target.value)}
+        className="p-2 border rounded"
+      >
+        <option value="">Type</option>
         <option value="Remote">Remote</option>
         <option value="Onsite">Onsite</option>
       </select>
 
-      <select onChange={(e) => setSalary(e.target.value)}>
-        <option value="">All Salaries</option>
+      <select
+        onChange={(e) => setSalary(e.target.value)}
+        className="p-2 border rounded"
+      >
+        <option value="">Salary</option>
         <option value="500000">Above 5 LPA</option>
         <option value="800000">Above 8 LPA</option>
       </select>
 
-      <select onChange={(e) => setSort(e.target.value)}>
+      <select
+        onChange={(e) => setSort(e.target.value)}
+        className="p-2 border rounded"
+      >
         <option value="">Sort</option>
-        <option value="low">Salary Low → High</option>
-        <option value="high">Salary High → Low</option>
+        <option value="low">Low → High</option>
+        <option value="high">High → Low</option>
       </select>
 
       <button
+        className="col-span-2 md:col-span-4 bg-red-500 text-white py-2 rounded"
         onClick={() => {
           setRole("");
           setType("");
@@ -40,5 +53,4 @@ const Filters = ({ setRole, setType, setSalary, setSort }) => {
   );
 };
 
-
-export default Filters
+export default Filters;
