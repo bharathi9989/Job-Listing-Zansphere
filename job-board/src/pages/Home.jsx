@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import useDebounce from "../hooks/useDebounce";
-import { jobs } from "../data/jobs";
 
 import SearchBar from "../components/SearchBar";
 import Filters from "../components/Filters";
@@ -14,6 +13,8 @@ const Home = () => {
   const [params, setParams] = useSearchParams();
 
   // 🔥 State Initialization from URL
+   const [jobsData, setJobsData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState(params.get("search") || "");
   const [role, setRole] = useState(params.get("role") || "");
   const [type, setType] = useState(params.get("type") || "");
@@ -27,51 +28,40 @@ const Home = () => {
   const debouncedSearch = useDebounce(search);
 
   // 🔥 Sync state → URL
-  const [jobsData, setJobsData] = useState([]);
+ 
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      const query = new URLSearchParams({
-        search,
-        role,
-        type,
-        salary,
-        sort,
-      });
+ useEffect(() => {
+   const fetchJobs = async () => {
+     setLoading(true);
 
-      const res = await fetch(`http://localhost:5000/api/jobs?${query}`);
-      const data = await res.json();
-      setJobsData(data);
-    };
+     try {
+       const query = new URLSearchParams({
+         search: debouncedSearch,
+         role,
+         type,
+         salary,
+         sort,
+       });
 
-    fetchJobs();
-  }, [debouncedSearch, role, type, salary, sort]);
+       const res = await fetch(`http://localhost:5000/api/jobs?${query}`);
+       const data = await res.json();
+
+       setJobsData(data);
+     } catch (err) {
+       console.error("Error fetching jobs:", err);
+     }
+
+     setLoading(false);
+   };
+
+   fetchJobs();
+ }, [debouncedSearch, role, type, salary, sort]);
 
   // 🔥 Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [debouncedSearch, role, type, salary, sort]);
 
-  // 🔥 Filter + Sort (Optimized)
-  const filteredJobs = useMemo(() => {
-    let result = jobs.filter((job) => {
-      return (
-        job.title.toLowerCase().includes(debouncedSearch.toLowerCase()) &&
-        (role ? job.role === role : true) &&
-        (type ? job.type === type : true) &&
-        (salary ? job.salary >= Number(salary) : true)
-      );
-    });
-
-    // Sorting
-    if (sort === "low") {
-      result.sort((a, b) => a.salary - b.salary);
-    } else if (sort === "high") {
-      result.sort((a, b) => b.salary - a.salary);
-    }
-
-    return result;
-  }, [debouncedSearch, role, type, salary, sort]);
 
   // 🔥 Pagination
   const itemsPerPage = 5;
