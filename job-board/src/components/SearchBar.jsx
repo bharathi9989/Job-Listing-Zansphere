@@ -10,11 +10,11 @@ const SearchBar = ({ search, setSearch }) => {
 
   return (
     <input
+      className="search"
       type="text"
       placeholder="Search jobs..."
       value={search}
-      onChange={handleSearch}
-      className="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={(e) => setSearch(e.target.value)}
     />
   );
 };
