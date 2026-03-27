@@ -1,4 +1,4 @@
-const Filters = ({ setRole, setType, setSalary }) => {
+const Filters = ({ setRole, setType, setSalary, setSort }) => {
   return (
     <div>
       <select onChange={(e) => setRole(e.target.value)}>
@@ -25,8 +25,17 @@ const Filters = ({ setRole, setType, setSalary }) => {
         <option value="low">Salary Low → High</option>
         <option value="high">Salary High → Low</option>
       </select>
+
+      <button
+        onClick={() => {
+          setRole("");
+          setType("");
+          setSalary("");
+          setSort("");
+        }}
+      >
+        Reset Filters
+      </button>
     </div>
   );
 };
-
-export default Filters;
