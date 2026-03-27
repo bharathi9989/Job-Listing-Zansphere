@@ -39,3 +39,6 @@ const Filters = ({ setRole, setType, setSalary, setSort }) => {
     </div>
   );
 };
+
+
+export default Filters

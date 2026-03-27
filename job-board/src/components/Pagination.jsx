@@ -5,7 +5,7 @@ const Pagination = ({ total, perPage, currentPage, setCurrentPage }) => {
     <div>
       <button
         disabled={currentPage === 1}
-        onClick={() => setCurrentPage((prev) => prev - 1)}
+        onClick={() => setCurrentPage((p) => p - 1)}
       >
         Prev
       </button>
@@ -13,8 +13,8 @@ const Pagination = ({ total, perPage, currentPage, setCurrentPage }) => {
       {[...Array(totalPages)].map((_, i) => (
         <button
           key={i}
-          style={{ fontWeight: currentPage === i + 1 ? "bold" : "normal" }}
           onClick={() => setCurrentPage(i + 1)}
+          style={{ fontWeight: currentPage === i + 1 ? "bold" : "normal" }}
         >
           {i + 1}
         </button>
@@ -22,7 +22,7 @@ const Pagination = ({ total, perPage, currentPage, setCurrentPage }) => {
 
       <button
         disabled={currentPage === totalPages}
-        onClick={() => setCurrentPage((prev) => prev + 1)}
+        onClick={() => setCurrentPage((p) => p + 1)}
       >
         Next
       </button>
