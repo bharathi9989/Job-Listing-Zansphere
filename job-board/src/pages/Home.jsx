@@ -1,42 +1,70 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import useDebounce from "../hooks/useDebounce";
 import { jobs } from "../data/jobs";
+
 import SearchBar from "../components/SearchBar";
 import Filters from "../components/Filters";
 import JobCard from "../components/JobCard";
 import Pagination from "../components/Pagination";
-import { useMemo,useEffect } from "react";
-
 
 const Home = () => {
-  const [search, setSearch] = useState("");
-  const [role, setRole] = useState("");
-  const [type, setType] = useState("");
-  const [salary, setSalary] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    
-     const debouncedSearch = useDebounce(search);
+  // 🔥 URL Params
+  const [params, setParams] = useSearchParams();
 
-    useEffect(() => {
-      setCurrentPage(1);
-    }, [debouncedSearch, role, type, salary]);
+  // 🔥 State Initialization from URL
+  const [search, setSearch] = useState(params.get("search") || "");
+  const [role, setRole] = useState(params.get("role") || "");
+  const [type, setType] = useState(params.get("type") || "");
+  const [salary, setSalary] = useState(params.get("salary") || "");
+  const [sort, setSort] = useState(params.get("sort") || "");
+  const [currentPage, setCurrentPage] = useState(
+    Number(params.get("page")) || 1,
+  );
 
- 
+  // 🔥 Debounce
+  const debouncedSearch = useDebounce(search);
 
-  // Filter Logic
+  // 🔥 Sync state → URL
+  useEffect(() => {
+    setParams({
+      search,
+      role,
+      type,
+      salary,
+      sort,
+      page: currentPage,
+    });
+  }, [search, role, type, salary, sort, currentPage]);
 
- const filteredJobs = useMemo(() => {
-   return jobs.filter((job) => {
-     return (
-       job.title.toLowerCase().includes(debouncedSearch.toLowerCase()) &&
-       (role ? job.role === role : true) &&
-       (type ? job.type === type : true) &&
-       (salary ? job.salary >= Number(salary) : true)
-     );
-   });
- }, [debouncedSearch, role, type, salary]);
+  // 🔥 Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch, role, type, salary, sort]);
 
-  // 🔥 PAGINATION
+  // 🔥 Filter + Sort (Optimized)
+  const filteredJobs = useMemo(() => {
+    let result = jobs.filter((job) => {
+      return (
+        job.title.toLowerCase().includes(debouncedSearch.toLowerCase()) &&
+        (role ? job.role === role : true) &&
+        (type ? job.type === type : true) &&
+        (salary ? job.salary >= Number(salary) : true)
+      );
+    });
+
+    // Sorting
+    if (sort === "low") {
+      result.sort((a, b) => a.salary - b.salary);
+    } else if (sort === "high") {
+      result.sort((a, b) => b.salary - a.salary);
+    }
+
+    return result;
+  }, [debouncedSearch, role, type, salary, sort]);
+
+  // 🔥 Pagination
   const itemsPerPage = 5;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedJobs = filteredJobs.slice(
@@ -48,14 +76,25 @@ const Home = () => {
     <div>
       <h1>Job Board</h1>
 
+      {/* 🔍 Search */}
       <SearchBar search={search} setSearch={setSearch} />
 
-      <Filters setRole={setRole} setType={setType} setSalary={setSalary} />
+      {/* 🎯 Filters */}
+      <Filters
+        setRole={setRole}
+        setType={setType}
+        setSalary={setSalary}
+        setSort={setSort}
+      />
 
-      {paginatedJobs.map((job) => (
-        <JobCard key={job.id} job={job} />
-      ))}
+      {/* 📄 Job List */}
+      {paginatedJobs.length === 0 ? (
+        <p>No jobs found</p>
+      ) : (
+        paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
+      )}
 
+      {/* 📑 Pagination */}
       <Pagination
         total={filteredJobs.length}
         perPage={itemsPerPage}

@@ -19,6 +19,12 @@ const Filters = ({ setRole, setType, setSalary }) => {
         <option value="500000">Above 5 LPA</option>
         <option value="800000">Above 8 LPA</option>
       </select>
+
+      <select onChange={(e) => setSort(e.target.value)}>
+        <option value="">Sort</option>
+        <option value="low">Salary Low → High</option>
+        <option value="high">Salary High → Low</option>
+      </select>
     </div>
   );
 };
