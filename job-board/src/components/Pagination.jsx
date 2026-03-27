@@ -1,6 +1,11 @@
 const Pagination = ({ total, perPage, currentPage, setCurrentPage }) => {
   const totalPages = Math.ceil(total / perPage);
 
+  const itemsPerPage = 5;
+  const start = (currentPage - 1) * itemsPerPage;
+
+  const paginatedJobs = jobsData.slice(start, start + itemsPerPage);
+
   return (
     <div className="flex gap-2">
       <button
@@ -30,6 +35,13 @@ const Pagination = ({ total, perPage, currentPage, setCurrentPage }) => {
       >
         Next
       </button>
+      {loading ? (
+        <p>Loading...</p>
+      ) : paginatedJobs.length === 0 ? (
+        <p>No jobs found</p>
+      ) : (
+        paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
+      )}
     </div>
   );
 };
