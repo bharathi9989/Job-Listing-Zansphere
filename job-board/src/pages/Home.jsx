@@ -73,13 +73,11 @@ const Home = () => {
   );
 
   return (
-    <div>
-      <h1>Job Board</h1>
+    <div className="max-w-5xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">Job Board</h1>
 
-      {/* 🔍 Search */}
       <SearchBar search={search} setSearch={setSearch} />
 
-      {/* 🎯 Filters */}
       <Filters
         setRole={setRole}
         setType={setType}
@@ -87,20 +85,22 @@ const Home = () => {
         setSort={setSort}
       />
 
-      {/* 📄 Job List */}
-      {paginatedJobs.length === 0 ? (
-        <p>No jobs found</p>
-      ) : (
-        paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
-      )}
+      <div className="mt-6 space-y-4">
+        {paginatedJobs.length === 0 ? (
+          <p className="text-center text-gray-500">No jobs found</p>
+        ) : (
+          paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
+        )}
+      </div>
 
-      {/* 📑 Pagination */}
-      <Pagination
-        total={filteredJobs.length}
-        perPage={itemsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <div className="mt-6 flex justify-center">
+        <Pagination
+          total={filteredJobs.length}
+          perPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
     </div>
   );
 };
