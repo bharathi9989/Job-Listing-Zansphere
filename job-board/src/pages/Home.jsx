@@ -1,6 +1,11 @@
 import { useState } from "react"
 import useDebounce from "../hooks/useDebounce";
 import { jobs } from "../data/jobs";
+import SearchBar from "../components/SearchBar";
+import Filters from "../components/Filters";
+import JobCard from "../components/JobCard";
+import Pagination from "../components/Pagination";
+
 
 const Home = () => {
   const [search, setSearch] = useState("");
