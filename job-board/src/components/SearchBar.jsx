@@ -14,6 +14,7 @@ const SearchBar = ({ search, setSearch }) => {
       placeholder="Search jobs..."
       value={search}
       onChange={handleSearch}
+      className="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
   );
 };
