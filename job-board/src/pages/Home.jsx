@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import useDebounce from "../hooks/useDebounce";
@@ -9,12 +9,8 @@ import JobCard from "../components/JobCard";
 import Pagination from "../components/Pagination";
 
 const Home = () => {
-  // 🔥 URL Params
   const [params, setParams] = useSearchParams();
 
-  // 🔥 State Initialization from URL
-   const [jobsData, setJobsData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState(params.get("search") || "");
   const [role, setRole] = useState(params.get("role") || "");
   const [type, setType] = useState(params.get("type") || "");
@@ -24,56 +20,57 @@ const Home = () => {
     Number(params.get("page")) || 1,
   );
 
-  // 🔥 Debounce
+  const [jobsData, setJobsData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const debouncedSearch = useDebounce(search);
 
-  // 🔥 Sync state → URL
- 
+  // 🔥 Sync URL
+  useEffect(() => {
+    setParams({ search, role, type, salary, sort, page: currentPage });
+  }, [search, role, type, salary, sort, currentPage]);
 
- useEffect(() => {
-   const fetchJobs = async () => {
-     setLoading(true);
+  // 🔥 Fetch from backend
+  useEffect(() => {
+    const fetchJobs = async () => {
+      setLoading(true);
 
-     try {
-       const query = new URLSearchParams({
-         search: debouncedSearch,
-         role,
-         type,
-         salary,
-         sort,
-       });
+      try {
+        const query = new URLSearchParams({
+          search: debouncedSearch,
+          role,
+          type,
+          salary,
+          sort,
+        });
 
-       const res = await fetch(`http://localhost:5000/api/jobs?${query}`);
-       const data = await res.json();
+        const res = await fetch(`http://localhost:5000/api/jobs?${query}`);
+        const data = await res.json();
 
-       setJobsData(data);
-     } catch (err) {
-       console.error("Error fetching jobs:", err);
-     }
+        setJobsData(data);
+      } catch (err) {
+        console.error("Error fetching jobs:", err);
+      }
 
-     setLoading(false);
-   };
+      setLoading(false);
+    };
 
-   fetchJobs();
- }, [debouncedSearch, role, type, salary, sort]);
+    fetchJobs();
+  }, [debouncedSearch, role, type, salary, sort]);
 
-  // 🔥 Reset page when filters change
+  // 🔥 Reset page on filter change
   useEffect(() => {
     setCurrentPage(1);
   }, [debouncedSearch, role, type, salary, sort]);
 
-
   // 🔥 Pagination
   const itemsPerPage = 5;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedJobs = filteredJobs.slice(
-    startIndex,
-    startIndex + itemsPerPage,
-  );
+  const start = (currentPage - 1) * itemsPerPage;
+  const paginatedJobs = jobsData.slice(start, start + itemsPerPage);
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Job Board</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Job Board</h1>
 
       <SearchBar search={search} setSearch={setSearch} />
 
@@ -85,7 +82,9 @@ const Home = () => {
       />
 
       <div className="mt-6 space-y-4">
-        {paginatedJobs.length === 0 ? (
+        {loading ? (
+          <p className="text-center">Loading...</p>
+        ) : paginatedJobs.length === 0 ? (
           <p className="text-center text-gray-500">No jobs found</p>
         ) : (
           paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
@@ -94,7 +93,7 @@ const Home = () => {
 
       <div className="mt-6 flex justify-center">
         <Pagination
-          total={filteredJobs.length}
+          total={jobsData.length}
           perPage={itemsPerPage}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
