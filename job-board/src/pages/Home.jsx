@@ -15,12 +15,13 @@ const Home = () => {
   const [salary, setSalary] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     
+     const debouncedSearch = useDebounce(search);
 
     useEffect(() => {
       setCurrentPage(1);
     }, [debouncedSearch, role, type, salary]);
 
-  const debouncedSearch = useDebounce(search);
+ 
 
   // Filter Logic
 
