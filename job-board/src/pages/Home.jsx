@@ -27,16 +27,25 @@ const Home = () => {
   const debouncedSearch = useDebounce(search);
 
   // 🔥 Sync state → URL
+  const [jobsData, setJobsData] = useState([]);
+
   useEffect(() => {
-    setParams({
-      search,
-      role,
-      type,
-      salary,
-      sort,
-      page: currentPage,
-    });
-  }, [search, role, type, salary, sort, currentPage]);
+    const fetchJobs = async () => {
+      const query = new URLSearchParams({
+        search,
+        role,
+        type,
+        salary,
+        sort,
+      });
+
+      const res = await fetch(`http://localhost:5000/api/jobs?${query}`);
+      const data = await res.json();
+      setJobsData(data);
+    };
+
+    fetchJobs();
+  }, [debouncedSearch, role, type, salary, sort]);
 
   // 🔥 Reset page when filters change
   useEffect(() => {
