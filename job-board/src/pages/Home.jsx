@@ -5,14 +5,20 @@ import SearchBar from "../components/SearchBar";
 import Filters from "../components/Filters";
 import JobCard from "../components/JobCard";
 import Pagination from "../components/Pagination";
-import { useMemo } from "react";
+import { useMemo,useEffect } from "react";
+
 
 const Home = () => {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("");
   const [type, setType] = useState("");
   const [salary, setSalary] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    
+
+    useEffect(() => {
+      setCurrentPage(1);
+    }, [debouncedSearch, role, type, salary]);
 
   const debouncedSearch = useDebounce(search);
 
