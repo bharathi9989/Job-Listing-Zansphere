@@ -81,13 +81,15 @@ const Home = () => {
         setSort={setSort}
       />
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : paginatedJobs.length === 0 ? (
-        <p>No jobs found</p>
-      ) : (
-        paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
-      )}
+      <div className="jobs-list">
+        {loading ? (
+          <p>Loading...</p>
+        ) : paginatedJobs.length === 0 ? (
+          <p>No jobs found</p>
+        ) : (
+          paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
+        )}
+      </div>
 
       <Pagination
         total={jobsData.length}
