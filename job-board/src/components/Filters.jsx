@@ -3,7 +3,7 @@ const Filters = ({ setRole, setType, setSalary, setSort }) => {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
       <select
         onChange={(e) => setRole(e.target.value)}
-        className="p-2 border rounded"
+        className="p-2 border rounded cursor-pointer"
       >
         <option value="">Role</option>
         <option value="Frontend">Frontend</option>
@@ -13,7 +13,7 @@ const Filters = ({ setRole, setType, setSalary, setSort }) => {
 
       <select
         onChange={(e) => setType(e.target.value)}
-        className="p-2 border rounded"
+        className="p-2 border rounded cursor-pointer"
       >
         <option value="">Type</option>
         <option value="Remote">Remote</option>
@@ -22,7 +22,7 @@ const Filters = ({ setRole, setType, setSalary, setSort }) => {
 
       <select
         onChange={(e) => setSalary(e.target.value)}
-        className="p-2 border rounded"
+        className="p-2 border rounded cursor-pointer"
       >
         <option value="">Salary</option>
         <option value="500000">Above 5 LPA</option>
@@ -31,7 +31,7 @@ const Filters = ({ setRole, setType, setSalary, setSort }) => {
 
       <select
         onChange={(e) => setSort(e.target.value)}
-        className="p-2 border rounded"
+        className="p-2 border rounded cursor-pointer"
       >
         <option value="">Sort</option>
         <option value="low">Low → High</option>
@@ -39,7 +39,7 @@ const Filters = ({ setRole, setType, setSalary, setSort }) => {
       </select>
 
       <button
-        className="col-span-2 md:col-span-4 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 hover:scale-105 transition-all duration-200 cursor-pointer"
+        className="col-span-2 md:col-span-4 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition cursor-pointer"
         onClick={() => {
           setRole("");
           setType("");
