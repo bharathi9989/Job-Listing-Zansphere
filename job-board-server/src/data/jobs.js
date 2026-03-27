@@ -140,3 +140,4 @@ export const jobs = [
     salary: 300000,
   },
 ];
+
