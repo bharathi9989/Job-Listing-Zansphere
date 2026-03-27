@@ -39,7 +39,7 @@ const Filters = ({ setRole, setType, setSalary, setSort }) => {
       </select>
 
       <button
-        className="col-span-2 md:col-span-4 bg-red-500 text-white py-2 rounded"
+        className="col-span-2 md:col-span-4 bg-red-500 text-white py-2 rounded hover:bg-red-600 transition duration-200"
         onClick={() => {
           setRole("");
           setType("");
