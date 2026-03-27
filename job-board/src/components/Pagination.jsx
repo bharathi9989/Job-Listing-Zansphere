@@ -2,10 +2,10 @@ const Pagination = ({ total, perPage, currentPage, setCurrentPage }) => {
   const totalPages = Math.ceil(total / perPage);
 
   return (
-    <div className="flex gap-2">
+    <div className="pagination">
       <button
+        className={currentPage === 1 ? "disabled" : ""}
         disabled={currentPage === 1}
-        className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
         onClick={() => setCurrentPage((p) => p - 1)}
       >
         Prev
@@ -14,9 +14,7 @@ const Pagination = ({ total, perPage, currentPage, setCurrentPage }) => {
       {[...Array(totalPages)].map((_, i) => (
         <button
           key={i}
-          className={`px-3 py-1 border rounded cursor-pointer ${
-            currentPage === i + 1 ? "bg-blue-500 text-white" : ""
-          }`}
+          className={currentPage === i + 1 ? "active" : ""}
           onClick={() => setCurrentPage(i + 1)}
         >
           {i + 1}
@@ -24,8 +22,8 @@ const Pagination = ({ total, perPage, currentPage, setCurrentPage }) => {
       ))}
 
       <button
+        className={currentPage === totalPages ? "disabled" : ""}
         disabled={currentPage === totalPages}
-        className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
         onClick={() => setCurrentPage((p) => p + 1)}
       >
         Next

@@ -1,92 +1,126 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* Container */
 .container {
-  max-width: 800px;
-  margin: auto;
+  max-width: 900px;
+  margin: 40px auto;
   padding: 20px;
 }
 
+/* Title */
 .title {
   text-align: center;
-  margin-bottom: 20px;
+  font-size: 32px;
+  margin-bottom: 25px;
+  color: #222;
 }
 
+/* Search */
 .search {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 10px;
   border: 1px solid #ccc;
-  margin-bottom: 15px;
-  outline: none;
+  margin-bottom: 20px;
+  font-size: 16px;
+  transition: 0.2s;
 }
 
 .search:focus {
-  border-color: blue;
+  border-color: #007bff;
+  outline: none;
 }
 
+/* Filters */
 .filters {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .filters select {
-  padding: 8px;
-  border-radius: 6px;
+  padding: 10px;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 14px;
   cursor: pointer;
 }
 
+/* Reset Button */
 .reset-btn {
   grid-column: span 4;
-  background: red;
+  padding: 12px;
+  background: #ff4d4f;
   color: white;
-  padding: 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .reset-btn:hover {
-  background: darkred;
+  background: #d9363e;
 }
 
+/* Job Card */
 .job-card {
   background: white;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #e0e0e0;
+  transition: 0.2s;
+}
+
+.job-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
 }
 
 .job-card h3 {
-  margin: 0 0 5px;
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.job-card p {
+  color: #555;
+  font-size: 14px;
 }
 
 .salary {
-  color: blue;
+  color: #007bff;
   font-weight: bold;
-  margin-top: 8px;
+  margin-top: 10px;
+  font-size: 15px;
 }
 
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 5px;
-  margin-top: 20px;
+  gap: 8px;
+  margin-top: 25px;
 }
 
 .pagination button {
-  padding: 6px 12px;
+  padding: 8px 14px;
   border: 1px solid #ccc;
   background: white;
+  border-radius: 6px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .pagination button:hover {
@@ -94,8 +128,9 @@ body {
 }
 
 .active {
-  background: blue;
+  background: #007bff;
   color: white;
+  border: none;
 }
 
 .disabled {
