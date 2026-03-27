@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+.search:focus {
+  border-color: blue;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filters select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.reset-btn {
+  grid-column: span 4;
+  background: red;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background: darkred;
+}
+
+.job-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+}
+
+.job-card h3 {
+  margin: 0 0 5px;
+}
+
+.salary {
+  color: blue;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background: #eee;
+}
+
+.active {
+  background: blue;
+  color: white;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

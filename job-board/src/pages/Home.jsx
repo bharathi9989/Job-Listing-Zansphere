@@ -69,8 +69,8 @@ const Home = () => {
   const paginatedJobs = jobsData.slice(start, start + itemsPerPage);
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center mb-6">Job Board</h1>
+    <div className="container">
+      <h1 className="title">Job Board</h1>
 
       <SearchBar search={search} setSearch={setSearch} />
 
@@ -81,24 +81,20 @@ const Home = () => {
         setSort={setSort}
       />
 
-      <div className="mt-6 space-y-4">
-        {loading ? (
-          <p className="text-center">Loading...</p>
-        ) : paginatedJobs.length === 0 ? (
-          <p className="text-center text-gray-500">No jobs found</p>
-        ) : (
-          paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
-        )}
-      </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : paginatedJobs.length === 0 ? (
+        <p>No jobs found</p>
+      ) : (
+        paginatedJobs.map((job) => <JobCard key={job.id} job={job} />)
+      )}
 
-      <div className="mt-6 flex justify-center">
-        <Pagination
-          total={jobsData.length}
-          perPage={itemsPerPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      </div>
+      <Pagination
+        total={jobsData.length}
+        perPage={itemsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
